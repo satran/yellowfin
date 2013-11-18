@@ -251,7 +251,7 @@ $(document).ready(function() {
         },
 
         index: function() {
-            if (!this.loginRequired)
+            if (!this.loginRequired())
                 return;
             
             this.init();
@@ -295,7 +295,7 @@ $(document).ready(function() {
         },
 
         repo: function(owner, repoName) {
-            if (!this.loginRequired)
+            if (!this.loginRequired())
                 return;
             
             this.init();
@@ -341,7 +341,7 @@ $(document).ready(function() {
     // Settings for the markdown parser
     marked.setOptions({
         gfm: true
-    })
+    });
 
     Backbone.$ = $;
     Backbone.history.start();
