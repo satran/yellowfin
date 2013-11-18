@@ -1,0 +1,185 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Roboto;
+}
+
+#loader{
+    height: 100%;
+    background: rgba(255, 255, 255, .6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+}
+#loader img{
+    display: block;
+    margin: 20% auto 0;
+}
+
+
+#loginWindow li{
+    list-style: none;
+    padding: 10px;
+}
+#loginWindow .modal-body{
+    width: 400px;
+    margin: 0 auto;
+}
+
+#app{
+}
+
+#mainNav{
+    width: 60px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #0EA5A0;
+    text-align: center;
+}
+#mainNav li{
+    list-style: none;
+    font-size: 30px;
+    padding: 5px;
+}
+#mainNav li.bottom{
+    position: absolute;
+    bottom: 10px;
+    width: 60px;
+    text-align: center;
+}
+#mainNav a{
+    text-decoration: none;
+    color: white;
+}
+#userImage{
+    width: 40px;
+    border-radius: 50%;
+}
+
+#toolBar{
+    position: fixed;
+    top: 0;
+    left: 60px;
+    padding: 10px 20px;
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 1px solid #efefef;
+    z-index: 1000;
+}
+#toolBar .btn-group{
+    margin: 0 auto;
+}
+
+#sideBar{
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    overflow-y: scroll;
+    color: #555555;
+    background: #efefef;
+    border-left: 1px solid #eaeaea;
+    width: 200px;
+    z-index: 2000;
+}
+#sideBar li.issue{
+    list-style: none;
+    padding: 5px;
+    cursor: default;
+    background: #fff;
+    margin: 5px;
+    border-radius: 3px;
+    border: 1px solid #DADADA;
+    z-index: 2000;
+}
+
+#content{
+    margin-top: 60px;
+    margin-left: 60px;
+    height: 100%;
+}
+
+.repo{
+    margin: 5px auto;
+    border: 1px solid #EFEFEF;
+    padding: 0;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-family: "Roboto";
+    max-width: 500px;
+}
+.repo :hover{
+    background: #fafafa;
+}
+.repo a{
+    text-decoration: none;
+    color: #555555;
+    padding: 5px;
+    display: block
+}
+.repo .name{
+    font-weight: 200;
+    font-size: 1.5em;
+}
+.repo .content{
+    font-size: .6em;
+    margin: 3px;
+    float: right;
+    color: #777;
+}
+
+#issueCalendar{
+    margin: 70px 240px 20px 20px;
+}
+
+
+/* FullCalendar theme overrid e*/
+th.fc-day-header{
+    border: none;
+    border-bottom: 1px solid #efefef;
+}
+td.fc-day{
+    border: none;
+    border-bottom: 1px solid #efefef;
+    border-right: 1px solid #efefef;
+}
+td.fc-day:last-child{
+    border-right: none;
+}
+.fc-day-number{
+    color: #aaaaaa;
+}
+.fc-widget-header, .fc-widget-content{
+    border: 1px solid #efefef;
+}
+
+#issueDetail{
+    max-width: 500px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background: #ffffff;
+    display: none;
+    height: 100%;
+    z-index: 3000;
+    padding: 10px;
+    border-left: 1px solid #afafaf;
+    overflow-y: scroll;
+}
+#issueDetail .close{
+    float: none;
+}
+
+/*Bootstrap popup customization.*/
+.popover{
+    max-width: 300px;
+}
+.popover-content{
+    max-height: 400px;
+    overflow-y: scroll;
+}

@@ -1,0 +1,167 @@
+<!doctype html>
+<head>
+  <title>Github Cal</title>
+  <link rel='stylesheet' type='text/css' href='fullcalendar/fullcalendar.css' />
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="css/fonts/Roboto/font.css" type="text/css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="css/app.css" type="text/css" media="screen" title="no title" charset="utf-8">
+</head>
+
+<body>
+
+  <!-- Loader -->
+  <div id="loader">
+    <img src="images/loader.gif" />
+  </div>
+
+  
+  
+  <!-- Login Window -->  
+  <div class="modal fade" id="loginWindow" tabindex="-1" role="dialog" aria-labelledby="loginWindow" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Login</h4>
+        </div>
+        <div class="modal-body">
+          <li><input class="form-control" type="text" name="username" placeholder="Username"/></li>
+          <li><input class="form-control" type="password" name="password" placeholder="Password"/></li>
+          <li><button class="btn btn-primary btn-block">Login</button></li>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Login Window -->
+
+
+
+  <!-- The Actual Window -->
+  <div id="app">
+    <nav id="mainNav">
+      <li><img id="userImage" /></li>
+      <li><a href=""></a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-th"></span></a></li>
+      <li class="bottom"><a href="#logout"><span class="glyphicon glyphicon-off"></span></a></li>
+    </nav>
+    <div id="toolBar">
+
+    </div>
+
+    <div id="sideBar">
+
+    </div>
+    
+    <div id="content">
+    </div>
+    
+  </div>
+ 
+  <div id="issueDetail">
+      
+  </div>
+  
+  
+  <script id="repoTemplate" type="text/template">
+    <a href="#repos/<%- owner.login %>/<%- name  %>">
+      <span class="name">
+        <%- name %>
+        <%= private? '<span class="content glyphicon glyphicon-lock"></span>' :'' %>
+        <%= fork? '<span class="content glyphicon glyphicon-random"></span>' : '' %>
+        <span class="content issue"><%- open_issues_count %> issues</span>
+      </span>
+    </a>
+  </script>
+
+  <script id="issueCalendarToolBarTemplate" type="text/template">
+    <div class="btn-group" id="repoToolBar">
+      <button type="button" class="btn btn-default calMonth">
+          Month
+      </button>
+      <button type="button" class="btn btn-default calWeek">
+          Week
+      </button>
+    </div>
+    <div class="btn-group" id="repoToolBar">
+      <button type="button" class="btn btn-default calPrev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+      </button>
+      <button type="button" class="btn btn-default calToday">
+          Today
+      </button>
+      <button type="button" class="btn btn-default calNext">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+      </button>
+    </div>
+  </script>
+
+
+  <script id="repoToolBarTemplate" type="text/template">
+    <div class="btn-group" id="repoToolBar">
+      <button type="button" class="btn btn-default">All</button>
+      <button type="button" class="btn btn-default">Private</button>
+      <button type="button" class="btn btn-default">Owned</button>
+    </div>
+  </script>
+
+
+  <script id="issueTemplate" type="text/template">
+    <span id="issue<%- number %>"class="number">#<%- number %> </span>
+    <span class="title"><%- title.slice(0, 70)  %></span>
+  </script>
+
+
+  <script id="issueCalHeaderTemplate" type="text/template">
+  <thead>
+  <tr class="calRow calHeader">
+      <th class="calCell">&nbsp;</th>
+      <th class="calCell dropCol mon">Mon</th>
+      <th class="calCell dropCol tue">Tue</th>
+      <th class="calCell dropCol wed">Wed</th>
+      <th class="calCell dropCol thur">Thur</th>
+      <th class="calCell dropCol fri">Fri</th>
+      <th class="calCell dropCol sat">Sat</th>
+      <th class="calCell dropCol sun">Sun</th>
+  </tr>
+  </thead>
+  <tbody>
+  </script>
+  
+  <script id="issueCalTemplate" type="text/template">
+        <td class="calCell"><%- login %></td>
+        <td class="calCell dropCol mon"></td>
+        <td class="calCell dropCol tue"></td>
+        <td class="calCell dropCol wed"></td>
+        <td class="calCell dropCol thur"></td>
+        <td class="calCell dropCol fri"></td>
+        <td class="calCell dropCol sat"></td>
+        <td class="calCell dropCol sun"></td>
+  </script>
+  
+ 
+  <script id="issueDetailTemplate" type="text/template">
+      <button type="button" class="close" aria-hidden="true">&times;</button>
+      <h3><%- title %></h3>
+      <div class="body">
+      <%= marked(body) %>
+      </div>
+  </script>
+  
+  
+  <script id="issueDroppedTemplate" type="text/template">
+  <span class="label label-primary"><%- number %></span>
+  </script>
+ 
+  
+  <script src="js/jquery-2.0.3.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/underscore.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/backbone.js" type="text/javascript" charset="utf-8"></script>
+  <script type='text/javascript' src='js/jquery-ui.custom.min.js'></script>
+  <script type='text/javascript' src='fullcalendar/fullcalendar.js'></script>
+  <script src="js/marked.js" type="text/javascript" charset="utf-8"></script>
+  
+  <script src="js/models.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/views.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+</body>
