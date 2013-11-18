@@ -233,15 +233,19 @@ $(document).ready(function() {
             "logout": "logout",
             "repos/:owner/:repoName": "repo"
         },
-
-        index: function() {
+        
+        loginRequired: function(){
             // If not yet logged in lets redirect to the login page
             if (!getAuth()) {
                 this.navigate("login", {
                     trigger: true
                 });
+                return false;
             }
-            
+            return true;
+        }, 
+        
+        init: function(){
             clearAppAndTool();
 
             // Fetch the user's details
@@ -249,6 +253,13 @@ $(document).ready(function() {
 
             // Load the user's organizations
             fetchAllOrgs();
+        },
+
+        index: function() {
+            if (!this.loginRequired)
+                return;
+            
+            this.init();
 
             // Load the loginWindow
             $('#loginWindow').modal({
@@ -286,7 +297,10 @@ $(document).ready(function() {
         },
 
         repo: function(owner, repoName) {
-            clearAppAndTool();
+            if (!this.loginRequired)
+                return;
+            
+            this.init();
             
             $('#loader').show();
 
