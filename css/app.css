@@ -10,7 +10,7 @@ body{
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 4000;
     width: 100%;
 }
 #loader img{

@@ -234,24 +234,21 @@ $(document).ready(function() {
             "repos/:owner/:repoName": "repo"
         },
 
-        initialize: function() {
+        index: function() {
             // If not yet logged in lets redirect to the login page
             if (!getAuth()) {
                 this.navigate("login", {
                     trigger: true
                 });
-                return;
             }
+            
+            clearAppAndTool();
 
             // Fetch the user's details
             loadUser();
 
             // Load the user's organizations
             fetchAllOrgs();
-        },
-
-        index: function() {
-            clearAppAndTool();
 
             // Load the loginWindow
             $('#loginWindow').modal({
@@ -272,7 +269,8 @@ $(document).ready(function() {
         },
 
         login: function() {
-            //setAuth("0c5dd4ed7215afd11c791ee58e27cfc09460ee7e", "x-oauth-basic");
+            $('#loader').hide();
+            
             $('#loginWindow').modal('show');
         },
 
@@ -288,8 +286,9 @@ $(document).ready(function() {
         },
 
         repo: function(owner, repoName) {
-            $('#loader').show();
             clearAppAndTool();
+            
+            $('#loader').show();
 
             setCurrentRepoAndOrg(owner, repoName);
 
