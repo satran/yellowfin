@@ -102,11 +102,6 @@ $(document).ready(function() {
     }
 
 
-    function renderRepoView() {
-        App.repoView = new RepoApp(App.repos);
-    }
-
-
     // This requires App.orgs to be populated.
     function fetchAllRepos() {
         App.reposList = [];
@@ -272,8 +267,11 @@ $(document).ready(function() {
             // Fetch all repos
             fetchAllRepos();
 
-            // Render the repos view
-            renderRepoView();
+            var repoView = new RepoApp({repos:App.repos,
+                                        toolbar: $("#toolBar"),
+                                        container: $("#content"),
+                                        user: App.user});
+            $("#sideBar").hide();
 
             $('#loader').hide();
 
