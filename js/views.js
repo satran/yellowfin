@@ -10,30 +10,66 @@ var RepoView = Backbone.View.extend({
         this.render();
     },
 
+    hide: function(){
+        this.$el.hide();
+    },
+
+    show: function(){
+        this.$el.show();
+    },
+
     render: function(){
         this.$el.html(this.template(this.model.toJSON()));
+        this.listenTo(this.model, "hide", this.hide);
+        this.listenTo(this.model, "show", this.show);
         return this;
     }
-    
+
 });
 
 
 var RepoApp = Backbone.View.extend({
-    constructor: function(repos){
-        this.repos = repos;
+    initialize: function(args){
+        this.container = args.container;
+        this.toolbar = args.toolbar;
+        this.user = args.user;
+        this.repos = args.repos;
+
         this.addAll();
     },
-    
+
     addOne: function(repo){
         var view = new RepoView({model: repo});
-        $("#content").append(view.render().el);
+        this.container.append(view.render().el);
     },
 
     addAll: function(){
+        var view = this;
         this.repos.each(this.addOne, this);
-        $("#toolBar").html(_.template($("#repoToolBarTemplate").html())());
-        $("#sideBar").html('');
-        $('#sideBar').hide();
+        this.toolbar.html(_.template($("#repoToolBarTemplate").html())());
+        this.toolbar.find(".repoPrivate").on("click", function(){
+            view.repos.each(function(repo){
+                if (repo.get("private") === true)
+                    repo.trigger("show");
+                else
+                    repo.trigger("hide");
+            });
+        });
+
+        this.toolbar.find(".repoOwned").on("click", function(){
+            view.repos.each(function(repo){
+                if (repo.get("owner") !== undefined &&
+                    repo.get("owner").login === App.user.login)
+                    repo.trigger("show");
+                else
+                    repo.trigger("hide");
+            });
+        });
+        this.toolbar.find(".repoAll").on("click", function(){
+            view.repos.each(function(repo){
+                repo.trigger("show");
+            });
+        });
     }
 });
 
